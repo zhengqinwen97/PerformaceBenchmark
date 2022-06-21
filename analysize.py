@@ -193,7 +193,7 @@ def main():
     my_dict = sorted(score_dict.items(), key=lambda x: x[1], reverse=True)
     print(my_dict)
 
-    with open('tile_priority.csv', 'w') as f:
+    with open('output/tile_priority.csv', 'w') as f:
         for key, val in my_dict:
             f.write("%s,%s\n" % (key, val))
 
