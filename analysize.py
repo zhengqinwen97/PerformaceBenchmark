@@ -4,7 +4,7 @@ from info import ConvInfo, Tail, AnalysizeRes, FlexGemmConvInfo
 import pandas as pd
 import math
 from collections import OrderedDict
-from models.get_model import get_model
+# from models.get_model import get_model
 
 MAX_BLOCK_NUM = 108 * 2
 
@@ -51,6 +51,9 @@ INPUT_BATCH_SIZES = {
 INPUT_SIZES = [(224, 224)]
 
 # resnet50, resnet101, resnet152, se-resnext50, se-resnext101, se-resnext152, yolov3-darknet, maskrcnn
+
+def get_model(network_name):
+    pass
 
 MODELS = OrderedDict(
     {
@@ -152,50 +155,46 @@ def write_df_dict(network_name, df_dict, conv_info, origin_conv_info, tiles, sco
 
 
 def main():
-    df_forward_dict = get_indexs(FORWARD_TILES)
-    df_backward_data_dict = get_indexs(BACKWARD_DATA_TILES)
-    df_backward_weights_dict = get_indexs(BACKWARD_WEIGHTS_TILES)
+    pass
 
-    score_dict = init_score_dict(FORWARD_TILES)
-
-    for nerwork_name, model in MODELS.items():
-        print(f"network: {nerwork_name}")
-        for input_size in INPUT_SIZES:
-            for batch_size in INPUT_BATCH_SIZES[nerwork_name]:
-                print(f"batch_size: {batch_size}")
-                conv_infos = extract_conv_info(model, (batch_size, 3, input_size[0], input_size[1]))
-                for _, conv_forward_info in conv_infos.items():
-                    tmp_flexgemm_conv_info = FlexGemmConvInfo(conv_forward_info)
-                    tmp_flexgemm_conv_info.gen_back_info()
-                    conv_backward_data_info = tmp_flexgemm_conv_info.backward_data_info
-                    conv_backward_weights_info = tmp_flexgemm_conv_info.backward_weights_info
-
-                    write_df_dict(nerwork_name, df_forward_dict, conv_forward_info, conv_forward_info, FORWARD_TILES, score_dict)
-                    write_df_dict(nerwork_name, df_backward_data_dict, conv_backward_data_info, conv_forward_info, BACKWARD_DATA_TILES,
-                                  score_dict)
-                    write_df_dict(nerwork_name, df_backward_weights_dict, conv_backward_weights_info, conv_forward_info,
-                                  BACKWARD_WEIGHTS_TILES, score_dict)
-
-    df_forward = pd.DataFrame.from_dict(df_forward_dict)
-    # df_forward.to_csv("./resnet50_forward.csv")
-
-    df_backward_data = pd.DataFrame.from_dict(df_backward_data_dict)
-    # df_backward_data.to_csv("./resnet50_backward_data.csv")
-
-    df_backward_weights = pd.DataFrame.from_dict(df_backward_weights_dict)
-    # df_backward_weights.to_csv("./resnet50_backward_weights.csv")
-
-    df = pd.concat([df_forward, df_backward_data, df_backward_weights])
-
-    df.to_csv("./benchmark.csv")
-
-    # print(score_dict)
-    my_dict = sorted(score_dict.items(), key=lambda x: x[1], reverse=True)
-    print(my_dict)
-
-    with open('output/tile_priority.csv', 'w') as f:
-        for key, val in my_dict:
-            f.write("%s,%s\n" % (key, val))
+    # df_forward_dict = get_indexs(FORWARD_TILES)
+    # df_backward_data_dict = get_indexs(BACKWARD_DATA_TILES)
+    # df_backward_weights_dict = get_indexs(BACKWARD_WEIGHTS_TILES)
+    #
+    # score_dict = init_score_dict(FORWARD_TILES)
+    #
+    # for nerwork_name, model in MODELS.items():
+    #     print(f"network: {nerwork_name}")
+    #     for input_size in INPUT_SIZES:
+    #         for batch_size in INPUT_BATCH_SIZES[nerwork_name]:
+    #             print(f"batch_size: {batch_size}")
+    #             conv_infos = extract_conv_info(model, (batch_size, 3, input_size[0], input_size[1]))
+    #             for _, conv_forward_info in conv_infos.items():
+    #                 tmp_flexgemm_conv_info = FlexGemmConvInfo(conv_forward_info)
+    #                 tmp_flexgemm_conv_info.gen_back_info()
+    #                 conv_backward_data_info = tmp_flexgemm_conv_info.backward_data_info
+    #                 conv_backward_weights_info = tmp_flexgemm_conv_info.backward_weights_info
+    #
+    #                 write_df_dict(nerwork_name, df_forward_dict, conv_forward_info, conv_forward_info, FORWARD_TILES, score_dict)
+    #                 write_df_dict(nerwork_name, df_backward_data_dict, conv_backward_data_info, conv_forward_info, BACKWARD_DATA_TILES,
+    #                               score_dict)
+    #                 write_df_dict(nerwork_name, df_backward_weights_dict, conv_backward_weights_info, conv_forward_info,
+    #                               BACKWARD_WEIGHTS_TILES, score_dict)
+    #
+    # df_forward = pd.DataFrame.from_dict(df_forward_dict)
+    # df_backward_data = pd.DataFrame.from_dict(df_backward_data_dict)
+    # df_backward_weights = pd.DataFrame.from_dict(df_backward_weights_dict)
+    # df = pd.concat([df_forward, df_backward_data, df_backward_weights])
+    #
+    # df.to_csv("./benchmark.csv")
+    #
+    # # print(score_dict)
+    # my_dict = sorted(score_dict.items(), key=lambda x: x[1], reverse=True)
+    # print(my_dict)
+    #
+    # with open('output/tile_priority.csv', 'w') as f:
+    #     for key, val in my_dict:
+    #         f.write("%s,%s\n" % (key, val))
 
 
 if __name__ == '__main__':

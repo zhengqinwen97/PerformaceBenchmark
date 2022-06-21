@@ -49,14 +49,6 @@ def summary(model, input_size, device="cuda"):
     else:
         dtype = torch.FloatTensor
 
-    # multiple inputs to the network
-    # if isinstance(input_size, tuple):
-    #     input_size = list(input_size)
-
-    # batch_size of 2 for batchnorm
-    # x = [torch.rand(2, *in_size).type(dtype) for in_size in input_size]
-    # print(type(x[0]))
-
     rand_in_size = [input_size[1], input_size[2], input_size[3]]
     x = [torch.rand(2, rand_in_size[0], rand_in_size[1], rand_in_size[2]).type(dtype)]
 
@@ -68,7 +60,6 @@ def summary(model, input_size, device="cuda"):
     model.apply(register_hook)
 
     # make a forward pass
-    # print(x.shape)
     model(*x)
 
     # remove these hooks

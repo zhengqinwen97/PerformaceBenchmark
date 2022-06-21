@@ -1,0 +1,12 @@
+# conf.yaml
+
+backbones:
+  resnet50:
+    backbone_name: "ResNet50"
+    backbone_path: "ResNet50"
+    batch_size: [448]
+    output_path: "./output/resnet50"
+
+tiles:
+  - [32, 64]
+  - [32, 128]
