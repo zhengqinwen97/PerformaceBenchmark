@@ -7,4 +7,6 @@ export PYTHONPATH=$PYTHONPATH:/home/qizheng/code/backbone_extract/models/yolov3/
 export PYTHONPATH=$PYTHONPATH:/home/qizheng/code/backbone_extract/models/deeplabv3/pytorch-deeplab-xception-master
 export PYTHONPATH=$PYTHONPATH:/home/qizheng/code/backbone_extract/models/cycle_gan/pytorch-CycleGAN-and-pix2pix-master
 
-/home/qizheng/code/backbone_extract/venv/bin/python analysize.py
+PY="venv/Scripts/python"
+
+$PY analysize.py
