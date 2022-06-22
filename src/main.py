@@ -1,5 +1,3 @@
-from mmdet.models import Darknet
-import torch
 
 def main():
     # parse conf yaml
@@ -12,10 +10,10 @@ def main():
 
         # serilaze and save
 
-    darknet = Darknet(depth=53)
-    inputs = torch.rand(1, 3, 416, 416)
-    level_outputs = darknet.forward(inputs)
-    print(level_outputs)
+    import paddle
+    lenet = paddle.vision.models.LeNet(num_classes=10)
+    paddle.summary(lenet,(1, 1, 28, 28))
+
 
 if __name__ == '__main__':
     main()

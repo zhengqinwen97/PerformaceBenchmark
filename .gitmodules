@@ -4,3 +4,6 @@
 [submodule "thirdparty/mmcv"]
 	path = thirdparty/mmcv
 	url = https://github.com/open-mmlab/mmcv.git
+[submodule "thirdparty/PaddleDetection"]
+	path = thirdparty/PaddleDetection
+	url = https://github.com/PaddlePaddle/PaddleDetection.git
