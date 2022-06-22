@@ -4,6 +4,7 @@ class Network(object):
         self.serialize_all_info = None
         self.serialize_compute_info = None
         self.save_dir = None
+        self.summarys = None
 
     def get_graph(self):
         pass
@@ -18,6 +19,9 @@ class Network(object):
         pass
 
     def save(self):
+        pass
+
+    def _register_hook(self):
         pass
 
 
